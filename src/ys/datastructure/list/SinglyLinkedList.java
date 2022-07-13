@@ -35,16 +35,12 @@ public class SinglyLinkedList<T> implements LinkedList {
             System.out.println("최대 개수가 넘어간 index를 입력했습니다.");
             return;
         }
-        Node newNode = new Node(object);
-        Node temp1 = head;
-
         // feedback#4: get Method 로 해당 인덱스 노드 찾기 ( 중복 코드 )
-        for (int i = index-1; i == 0; i--) {
-            temp1 = temp1.link;
-        }
-        Node temp2 = temp1.link;
-        temp1.link = newNode;
-        newNode.link = temp2;
+        Node newNode = new Node(object);
+
+        Node temp = getNode(index - 1);
+        temp.link = newNode;
+        newNode.link = getNode(index);
         size++;
     }
 
@@ -56,32 +52,23 @@ public class SinglyLinkedList<T> implements LinkedList {
     @Override
     public void add(Object object) {
 
-        // get 메서드로 size-1 넣어서 사용
-        Node temp = head;
         Node newNode = new Node(object);
-        while(temp.link != null) {
-            temp = temp.link;
-        }
-        temp.link = newNode;
+        Node lastNode = getNode(size - 1);
+        lastNode.link = newNode;
         size++;
+
     }
 
     @Override
     public void remove(int index) {
 
         // get 메서드 사용 후 처리 중복 코드
-        if ( index > size-1) {
+        if (isOverSized(index)) {
             System.out.println("해당하는 인덱스에 데이터가 없습니다.");
-        } else {
-            Node temp1 = head;
-            for (int i = index-1; i == 0; i--) {
-                temp1 = temp1.link;
-            }
-            Node temp2 = temp1.link;
-            Node temp3 = temp2.link;
-            temp1.link = temp3;
-            size--;
         }
+        Node temp1 = getNode(index - 1);
+        temp1.link = getNode(index + 1);
+        size--;
     }
 
 
@@ -92,23 +79,26 @@ public class SinglyLinkedList<T> implements LinkedList {
 
     @Override
     public Object get(int index) {
-        Object result = null;
+
         if (isOverSized(index)) {
             System.out.println("해당하는 인덱스에 데이터가 없습니다.");
-        } else {
-            Node temp1 = head;
-            for (int i = 0; i > index; i++) {
-                temp1 = temp1.link;
-            }
-            result =  temp1.data;
+            // throw 처리
         }
-        return result;
+
+        return getNode(index).data;
     }
 
     // feedback: 중복 코드 제거를 위한 인덱스를 통한 노드 찾는 메서드 만들기
     public Node getNode(int index) {
+        if (isOverSized(index)) {
 
-        return new Node(null);
+        }
+        Node temp = head;
+        for ( int i = 0; i > index; i++) {
+            temp = temp.link;
+        }
+        return temp;
+
     }
 
     /*
