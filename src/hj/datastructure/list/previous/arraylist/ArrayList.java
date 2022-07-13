@@ -1,6 +1,7 @@
 package hj.datastructure.list.previous.arraylist;
 
-import src.List.List;
+
+import hj.datastructure.list.previous.List;
 
 import java.util.Arrays;
 
