@@ -2,9 +2,20 @@ package ys.datastructure.list;
 
 public class DoublyLinkedList implements LinkedList {
 
+    private static class Node<E> {
+        private E data;
+        private Node<E> previous;
+        private Node<E> next;
+
+        public Node(E data) {
+            this.data = data;
+        }
+
+    }
+
     @Override
     public void addHead(Object obj) {
-
+        Node newNode = new Node(obj);
     }
 
     @Override
@@ -31,4 +42,8 @@ public class DoublyLinkedList implements LinkedList {
     public Object get(int index) {
         return null;
     }
+
+//    public Node getNode(int index) {
+//
+//    }
 }
