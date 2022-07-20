@@ -1,6 +1,6 @@
 package ys.datastructure.list;
 
-public class SinglyLinkedList<T> implements LinkedList {
+public class SinglyLinkedList<T> implements List {
 
     private Node head;
     private int size;
